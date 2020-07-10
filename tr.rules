@@ -1,0 +1,119 @@
+[unaryReplaceTask:
+	(?p rdf:type cig:UnaryReplaceTaskPolicy) & 
+		(?p cig:taskToReplace ?t) & (?p cig:replacement ?r) & 
+		state:replace(?t, ?r)
+	-> 
+	(?r cig:replacing ?t)
+]
+
+[binaryReplaceTask:
+	(?p rdf:type cig:BinaryReplaceTasksPolicy) &
+		(?p cig:taskToReplace ?t) & (?t cig:reachedState cig:activeState) & 
+		(?p cig:taskToReplace ?u) & (?u cig:curState cig:chosenState) & notEqual(?t, ?u) &
+		state:discard(?u) & (?p cig:replacement ?r) & state:replace(?t, ?r)
+	->
+	(?r cig:replacing ?t)
+]
+
+[simulTask:
+	(?p rdf:type cig:SimulTasksPolicy) & 
+		(?p cig:simulTask ?t) & (?t cig:curState cig:pendingOrChosenState) &
+		(?p cig:simulTask ?u) & (?u cig:curState cig:pendingOrChosenState) & notEqual(?t, ?u) & 
+		(?p cig:simulPeriod ?wp) & (?p cig:config ?co) & 
+		tmp:allWithinPeriod(?t, cig:activeTime, ?u, cig:activeTime, ?wp, ?co)
+	->
+	(?t cig:simultaneous ?u)
+]
+
+[separTask:
+	(?p rdf:type cig:SeparateTasksPolicy) &
+		(?p cig:separTask ?s1) & (?s1 cig:task ?t)& (?t cig:curState cig:pendingOrChosenState) & (?s1 cig:order ?m) &
+		(?p cig:separTask ?s2) & (?s2 cig:task ?u) & (?u cig:curState cig:pendingOrChosenState) & (?s2 cig:order ?n) & 
+		(?p cig:separPeriod ?pe) & (?p cig:config ?co) & lessThan(?m, ?n) &
+		tmp:afterPeriodFrom(?u, cig:activeTime, ?t, cig:completeTime, ?pe, ?co)
+	-> 
+	(?t cig:separTask ?u)
+]
+
+[asymmRedunTasks:
+	(?p rdf:type cig:AsymmRedunTasksPolicy) &
+		(?p cig:essen ?e) & (?e cig:curState cig:pendingOrChosenState) &
+		(?p cig:redun ?r) & (?r cig:curState cig:pendingOrChosenState) &
+		(?e cig:resultValidPeriod ?pe) & (?p cig:config ?co) & 
+		tmp:withinPeriodOf(?r, cig:activeTime, ?e, cig:completeTime, ?pe, ?co) & 
+		state:discard(?r)
+	->
+	(?p cig:redundant ?r)
+]
+
+[symmRedunTasks:
+	(?p rdf:type cig:SymmRedunTasksPolicy) &
+		(?p cig:redun ?e) & (?e cig:curState cig:pendingOrChosenState) &
+		(?p cig:redun ?r) & (?r cig:curState cig:pendingOrChosenState) & notEqual(?e, ?r) &
+		(?e cig:resultValidPeriod ?pe) & (?p cig:config ?co) & 
+		tmp:withinPeriodOf(?r, cig:activeTime, ?e, cig:endTime, ?pe, ?co) & 
+		state:discard(?r)
+	->
+	(?p cig:redundant ?r)
+]
+
+[condPrp1: 
+	(?t ?prp ?cv) & (?prp rdfs:subPropertyOf cig:condProperty) & (?cv cig:condition ?c) & 
+		cond:satisfied(?t, ?prp, ?cv, cig:condition, cig:currentPatient) & (?cv cig:value ?v) & 
+		assert:property(?t, ?prp, ?v)
+	->
+	(?t cig:condValue ?v)
+]
+
+[condPrp2: 
+	(?t ?prp ?cv) & (?prp rdfs:subPropertyOf cig:condProperty) & (?cv cig:condition ?c) & 
+		cond:satisfied(?t, ?prp, ?cv, cig:condition, cig:currentPatient) & (?cv cig:task ?t) & 
+		assert:property(?t, ?prp, ?t)
+	->
+	(?t cig:condValue ?v)
+]
+
+[evtCondPlyDuring:
+	(?p rdf:type cig:EventCondReplacePolicy) & 
+		(?p cig:eventTask ?e) & (?e cig:curState cig:startedState) &
+		(?p cig:taskToReplace ?t) & (?t cig:curState cig:chosenState) &
+		(?p cig:replacement ?r) & (?r cig:eventTime cig:during) & 
+		(?r cig:entryCond ?c1) & cond:satisfied(?p, cig:replacement, ?r, cig:entryCond, cig:currentPatient) &
+		(?r cig:exitCond ?c2) & cond:notSatisfied(?p, cig:replacement, ?r, cig:exitCond, cig:currentPatient) &
+		(?r cig:task ?u) & state:replace(?t, ?u)
+	->
+	(?p cig:condReplaceTask ?u)
+]
+
+[evtCondPlyAfter:
+	(?p rdf:type cig:EventCondReplacePolicy) & 
+		(?p cig:eventTask ?e) & (?e cig:curState cig:completedState) &
+		(?p cig:taskToReplace ?t) & (?t cig:curState cig:chosenState) &
+		(?p cig:replacement ?r) & (?r cig:eventTime cig:after) & 
+		(?r cig:entryCond ?c1) & cond:satisfied(?r, cig:entryCond, ?r, cig:entryCond, cig:currentPatient) &
+		(?r cig:exitCond ?c2) & cond:notSatisfied(?r, cig:exitCond, ?r, cig:exitCond, cig:currentPatient) &
+		(?r cig:task ?u) & state:replace(?t, ?u)
+	->
+	(?p cig:condReplaceTask ?u)
+]
+
+# Rules to inference based on CIG-IntO ontology
+
+[subClassOf: 
+	(?c1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c2)
+	(?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c1)
+->
+	(?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c2)
+]
+
+[pendingOrChosen1:
+	(?t cig:curState cig:pendingChoiceState)
+->
+	(?t cig:curState cig:pendingOrChosenState)
+]
+
+[pendingOrChosen2:
+	(?t cig:curState cig:chosenState)
+->
+	(?t cig:curState cig:pendingOrChosenState)
+]

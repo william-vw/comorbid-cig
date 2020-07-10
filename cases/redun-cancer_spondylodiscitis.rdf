@@ -1,0 +1,46 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - cig
+
+cig:cancer a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:cancer_clinical_history_and_exam .
+cig:cancer_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:cancer_lumbar_mri .
+
+cig:spondylodiscitis a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:spondylodiscitis_clinical_history_and_exam .
+cig:spondylodiscitis_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:spondylodiscitis_lumbar_mri .
+
+cig:cancer_clinical_history_and_exam cig:duration "10" . 
+cig:cancer_lumbar_mri 
+	cig:curState cig:pendingChoiceState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:resultValidPeriod "5" ;
+	cig:maxAbsDelay "10" .
+	
+cig:spondylodiscitis_clinical_history_and_exam cig:duration "20" .
+cig:spondylodiscitis_lumbar_mri
+	cig:curState cig:pendingChoiceState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:resultValidPeriod "5" ;
+	cig:maxAbsDelay "10" .
+
+
+# - policy
+
+cig:p a cig:SymmRedunTasksPolicy ;
+	cig:redun cig:cancer_lumbar_mri ;
+	cig:redun cig:spondylodiscitis_lumbar_mri ;
+	
+	cig:config [
+		cig:precedence "0.5" ;
+		cig:category cig:clinicalCategory ;
+		cig:fuzzy "true" ;
+		cig:threshold "1" 
+	] .

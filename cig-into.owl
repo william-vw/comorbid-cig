@@ -1,0 +1,772 @@
+@prefix : <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix var: <urn:swrl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+<http://niche.cs.dal.ca/ns/cig-into#> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://niche.cs.dal.ca/ns/cig-into#condDuration
+cig:condDuration rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf cig:condProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condMaxAbsDelay
+cig:condMaxAbsDelay rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf cig:condProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condMaxRelDelay
+cig:condMaxRelDelay rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf cig:condProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condMinRelDelay
+cig:condMinRelDelay rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf cig:condProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condProperty
+cig:condProperty rdf:type owl:ObjectProperty ;
+                 rdfs:domain cig:CIGTask ;
+                 rdfs:range cig:Conditional .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condResultValidPeriod
+cig:condResultValidPeriod rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf cig:condProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#condition
+cig:condition rdf:type owl:ObjectProperty ;
+              rdfs:domain cig:Conditional ;
+              rdfs:range cig:Condition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#curState
+cig:curState rdf:type owl:ObjectProperty ;
+             rdfs:domain cig:CIGTask ;
+             rdfs:range cig:CIGTaskState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#entryCond
+cig:entryCond rdf:type owl:ObjectProperty ;
+              rdfs:domain cig:Replacement ;
+              rdfs:range cig:Condition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#essenTask
+cig:essenTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:intPt ;
+              rdfs:domain cig:RedunTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#eventTask
+cig:eventTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:intPt ;
+              rdfs:domain cig:EventCondReplacePolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#eventTime
+cig:eventTime rdf:type owl:ObjectProperty ;
+              rdfs:domain cig:Replacement ;
+              rdfs:range cig:RelativeTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#exitCond
+cig:exitCond rdf:type owl:ObjectProperty ;
+             rdfs:domain cig:Replacement ;
+             rdfs:range cig:Condition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#firstTask
+cig:firstTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:workflowTask ;
+              rdfs:domain cig:CIGWorkflow ;
+              rdfs:range cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#intPt
+cig:intPt rdf:type owl:ObjectProperty ;
+          rdfs:domain cig:CIGIntegrationPolicy ;
+          rdfs:range cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#nextTask
+cig:nextTask rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain cig:CIGTask ;
+             rdfs:range cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#reachedState
+cig:reachedState rdf:type owl:ObjectProperty .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#redunTask
+cig:redunTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:intPt ;
+              rdfs:domain cig:RedunTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#replacement
+cig:replacement rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf cig:condProperty ;
+                rdfs:domain cig:ReplaceTasksPolicy ;
+                rdfs:range cig:Replacement .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#replacing
+cig:replacing rdf:type owl:ObjectProperty ;
+              rdfs:domain cig:CIGTask ;
+              rdfs:range cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#separTask
+cig:separTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:intPt ;
+              rdfs:domain cig:SeparateTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#simulTask
+cig:simulTask rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf cig:intPt ;
+              rdfs:domain cig:SimulTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#task
+cig:task rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:range cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#taskResult
+cig:taskResult rdf:type owl:ObjectProperty ;
+               rdfs:domain cig:CIGTask ;
+               rdfs:range cig:CIGTaskResult .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#taskToReplace
+cig:taskToReplace rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf cig:intPt ;
+                  rdfs:domain cig:ReplaceTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#workflowTask
+cig:workflowTask rdf:type owl:ObjectProperty .
+
+
+###  http://wvw.org/cig#evolution
+<http://wvw.org/cig#evolution> rdf:type owl:ObjectProperty .
+
+
+###  http://wvw.org/cig#illness
+<http://wvw.org/cig#illness> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://niche.cs.dal.ca/ns/cig-into#active
+cig:active rdf:type owl:DatatypeProperty ;
+           rdfs:domain cig:CIGWorkflow ;
+           rdfs:range xsd:boolean .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#activeTime
+cig:activeTime rdf:type owl:DatatypeProperty ;
+               rdfs:domain cig:CIGTask ;
+               rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#completeTime
+cig:completeTime rdf:type owl:DatatypeProperty ;
+                 rdfs:domain cig:CIGTask ;
+                 rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#conflict
+cig:conflict rdf:type owl:DatatypeProperty ;
+             rdfs:domain cig:CIGIntegrationConflict ;
+             rdfs:range xsd:string .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#currentTime
+cig:currentTime rdf:type owl:DatatypeProperty ;
+                rdfs:domain cig:Time ;
+                rdfs:range xsd:integer .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#duration
+cig:duration rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf cig:inherentTaskProperty ;
+             rdfs:domain cig:CIGTask ;
+             rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#inherentTaskProperty
+cig:inherentTaskProperty rdf:type owl:DatatypeProperty ;
+                         rdfs:domain cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#maxAbsDelay
+cig:maxAbsDelay rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf cig:inherentTaskProperty ;
+                rdfs:range xsd:integer .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#maxRelDelay
+cig:maxRelDelay rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf cig:inherentTaskProperty ;
+                rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#minRelDelay
+cig:minRelDelay rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf cig:inherentTaskProperty ;
+                rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#order
+cig:order rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#originalActiveTime
+cig:originalActiveTime rdf:type owl:DatatypeProperty ;
+                       rdfs:domain cig:CIGTask ;
+                       rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#resultValidPeriod
+cig:resultValidPeriod rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf cig:inherentTaskProperty ;
+                      rdfs:range xsd:integer .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#separPeriod
+cig:separPeriod rdf:type owl:DatatypeProperty ;
+                rdfs:domain cig:SeparateTasksPolicy ;
+                rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#simulPeriod
+cig:simulPeriod rdf:type owl:DatatypeProperty ;
+                rdfs:domain cig:SimulTasksPolicy ;
+                rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#startTime
+cig:startTime rdf:type owl:DatatypeProperty ;
+              rdfs:domain cig:CIGTask ;
+              rdfs:range xsd:int .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#success
+cig:success rdf:type owl:DatatypeProperty ;
+            rdfs:domain cig:CIGTaskOperation ;
+            rdfs:range xsd:double .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#value
+cig:value rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://niche.cs.dal.ca/ns/cig-into#ActiveOrStartedTask
+cig:ActiveOrStartedTask rdf:type owl:Class ;
+                        owl:equivalentClass [ rdf:type owl:Class ;
+                                              owl:unionOf ( cig:ActiveTask
+                                                            cig:StartedTask
+                                                          )
+                                            ] ;
+                        rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ActiveTask
+cig:ActiveTask rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty cig:curState ;
+                                     owl:hasValue cig:activeState
+                                   ] ;
+               rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ActiveWorkflow
+cig:ActiveWorkflow rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty cig:active ;
+                                         owl:hasValue "true"^^xsd:boolean
+                                       ] ;
+                   rdfs:subClassOf cig:CIGWorkflow .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#AsymmRedunTasksPolicy
+cig:AsymmRedunTasksPolicy rdf:type owl:Class ;
+                          rdfs:subClassOf cig:RedunTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#BinaryReplaceTasksPolicy
+cig:BinaryReplaceTasksPolicy rdf:type owl:Class ;
+                             rdfs:subClassOf cig:ReplaceTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGIntegrationConflict
+cig:CIGIntegrationConflict rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGIntegrationPolicy
+cig:CIGIntegrationPolicy rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGTask
+cig:CIGTask rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGTaskOperation
+cig:CIGTaskOperation rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGTaskResult
+cig:CIGTaskResult rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGTaskState
+cig:CIGTaskState rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CIGWorkflow
+cig:CIGWorkflow rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CTPA_Cnd0
+cig:CTPA_Cnd0 rdf:type owl:Class ;
+              rdfs:subClassOf cig:DescribedCondition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CTPA_Cnd1
+cig:CTPA_Cnd1 rdf:type owl:Class ;
+              rdfs:subClassOf cig:DescribedCondition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CertainConflict
+cig:CertainConflict rdf:type owl:Class ;
+                    rdfs:subClassOf cig:ConflictLikelihood .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ChosenTask
+cig:ChosenTask rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty cig:curState ;
+                                     owl:hasValue cig:chosenState
+                                   ] ;
+               rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#CompletedTask
+cig:CompletedTask rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty cig:curState ;
+                                        owl:hasValue cig:completedState
+                                      ] ;
+                  rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Condition
+cig:Condition rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Conditional
+cig:Conditional rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ConflictLikelihood
+cig:ConflictLikelihood rdf:type owl:Class ;
+                       rdfs:subClassOf cig:CIGIntegrationConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ConflictTime
+cig:ConflictTime rdf:type owl:Class ;
+                 rdfs:subClassOf cig:CIGIntegrationConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DecisionalState
+cig:DecisionalState rdf:type owl:Class ;
+                    rdfs:subClassOf cig:CIGTaskState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DelayTasksPolicy
+cig:DelayTasksPolicy rdf:type owl:Class ;
+                     rdfs:subClassOf cig:NamedPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DescribedCondition
+cig:DescribedCondition rdf:type owl:Class ;
+                       rdfs:subClassOf cig:Condition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DesignTimeConflict
+cig:DesignTimeConflict rdf:type owl:Class ;
+                       rdfs:subClassOf cig:ConflictTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DiscardTasksPolicy
+cig:DiscardTasksPolicy rdf:type owl:Class ;
+                       rdfs:subClassOf cig:NamedPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#DiscardedTask
+cig:DiscardedTask rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty cig:curState ;
+                                        owl:hasValue cig:discardedState
+                                      ] ;
+                  rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#EventCondReplacePolicy
+cig:EventCondReplacePolicy rdf:type owl:Class ;
+                           rdfs:subClassOf cig:ReplaceTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ExecTimeConflict
+cig:ExecTimeConflict rdf:type owl:Class ;
+                     rdfs:subClassOf cig:ConflictTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#FoundConflict
+cig:FoundConflict rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty cig:conflict ;
+                                        owl:someValuesFrom xsd:string
+                                      ] ;
+                  rdfs:subClassOf cig:CIGIntegrationConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#InactiveTask
+cig:InactiveTask rdf:type owl:Class ;
+                 rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#MultipleIntegrationPoints
+cig:MultipleIntegrationPoints rdf:type owl:Class ;
+                              rdfs:subClassOf cig:PolicyGroup .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#NamedPolicy
+cig:NamedPolicy rdf:type owl:Class ;
+                rdfs:subClassOf cig:CIGIntegrationPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#NamedTask
+cig:NamedTask rdf:type owl:Class ;
+              rdfs:subClassOf cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#NotChosenTask
+cig:NotChosenTask rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty cig:curState ;
+                                        owl:hasValue cig:notChosenState
+                                      ] ;
+                  rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#PendingChoiceTask
+cig:PendingChoiceTask rdf:type owl:Class ;
+                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                            owl:onProperty cig:curState ;
+                                            owl:hasValue cig:pendingChoiceState
+                                          ] ;
+                      rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#PendingOrChosenTask
+cig:PendingOrChosenTask rdf:type owl:Class ;
+                        owl:equivalentClass [ rdf:type owl:Class ;
+                                              owl:unionOf ( cig:ChosenTask
+                                                            cig:PendingChoiceTask
+                                                          )
+                                            ] ;
+                        rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#PolicyGroup
+cig:PolicyGroup rdf:type owl:Class ;
+                rdfs:subClassOf cig:CIGIntegrationPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#PotentialConflict
+cig:PotentialConflict rdf:type owl:Class ;
+                      rdfs:subClassOf cig:ConflictLikelihood .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#RedunTasksPolicy
+cig:RedunTasksPolicy rdf:type owl:Class ;
+                     rdfs:subClassOf cig:DelayTasksPolicy ,
+                                     cig:DiscardTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#RelativeTime
+cig:RelativeTime rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#ReplaceTasksPolicy
+cig:ReplaceTasksPolicy rdf:type owl:Class ;
+                       rdfs:subClassOf cig:DiscardTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Replacement
+cig:Replacement rdf:type owl:Class ;
+                rdfs:subClassOf cig:Conditional .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Satisfied
+cig:Satisfied rdf:type owl:Class ;
+              rdfs:subClassOf cig:Condition .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#SeparateTasksPolicy
+cig:SeparateTasksPolicy rdf:type owl:Class ;
+                        rdfs:subClassOf cig:DelayTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#SimulTasksPolicy
+cig:SimulTasksPolicy rdf:type owl:Class ;
+                     rdfs:subClassOf cig:DelayTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#SingleIntegrationPoint
+cig:SingleIntegrationPoint rdf:type owl:Class ;
+                           rdfs:subClassOf cig:PolicyGroup .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#StartedTask
+cig:StartedTask rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty cig:curState ;
+                                      owl:hasValue cig:startedState
+                                    ] ;
+                rdfs:subClassOf cig:StateTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#StateOperation
+cig:StateOperation rdf:type owl:Class ;
+                   rdfs:subClassOf cig:CIGTaskOperation .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#StateTask
+cig:StateTask rdf:type owl:Class ;
+              rdfs:subClassOf cig:CIGTask .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#SymmRedunTasksPolicy
+cig:SymmRedunTasksPolicy rdf:type owl:Class ;
+                         rdfs:subClassOf cig:RedunTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#TaskFromSingleWorkflow
+cig:TaskFromSingleWorkflow rdf:type owl:Class ;
+                           rdfs:subClassOf cig:PolicyGroup .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#TasksFromMultipleWorkflows
+cig:TasksFromMultipleWorkflows rdf:type owl:Class ;
+                               rdfs:subClassOf cig:PolicyGroup .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#TemporalConstraint
+cig:TemporalConstraint rdf:type owl:Class ;
+                       rdfs:subClassOf cig:CIGTaskOperation .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Time
+cig:Time rdf:type owl:Class ;
+         rdfs:subClassOf cig:Util .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#UnaryReplaceTasksPolicy
+cig:UnaryReplaceTasksPolicy rdf:type owl:Class ;
+                            rdfs:subClassOf cig:ReplaceTasksPolicy .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#Util
+cig:Util rdf:type owl:Class .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#WorkflowState
+cig:WorkflowState rdf:type owl:Class ;
+                  rdfs:subClassOf cig:CIGTaskState .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://niche.cs.dal.ca/ns/cig-into#activeState
+cig:activeState rdf:type owl:NamedIndividual ,
+                         cig:WorkflowState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#after
+cig:after rdf:type owl:NamedIndividual ,
+                   cig:RelativeTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#before
+cig:before rdf:type owl:NamedIndividual ,
+                    cig:RelativeTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#chosenState
+cig:chosenState rdf:type owl:NamedIndividual ,
+                         cig:DecisionalState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#completedState
+cig:completedState rdf:type owl:NamedIndividual ,
+                            cig:WorkflowState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#discardSharedIntegrationPoint
+cig:discardSharedIntegrationPoint rdf:type owl:NamedIndividual ,
+                                           cig:ExecTimeConflict ,
+                                           cig:PotentialConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#discardedState
+cig:discardedState rdf:type owl:NamedIndividual ,
+                            cig:WorkflowState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#discardingDelayCause
+cig:discardingDelayCause rdf:type owl:NamedIndividual ,
+                                  cig:CertainConflict ,
+                                  cig:ExecTimeConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#during
+cig:during rdf:type owl:NamedIndividual ,
+                    cig:RelativeTime .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#inactiveState
+cig:inactiveState rdf:type owl:NamedIndividual ,
+                           cig:WorkflowState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#inconsistentOntology
+cig:inconsistentOntology rdf:type owl:NamedIndividual ,
+                                  cig:CertainConflict ,
+                                  cig:DesignTimeConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#localTime
+cig:localTime rdf:type owl:NamedIndividual ,
+                       cig:Time ;
+              cig:currentTime 0 .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#maxDelayAlmostExceeded
+cig:maxDelayAlmostExceeded rdf:type owl:NamedIndividual ,
+                                    cig:CertainConflict ,
+                                    cig:ExecTimeConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#multipleTasksFromSameWorkflow
+cig:multipleTasksFromSameWorkflow rdf:type owl:NamedIndividual ,
+                                           cig:DesignTimeConflict ,
+                                           cig:PotentialConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#notChosenState
+cig:notChosenState rdf:type owl:NamedIndividual ,
+                            cig:DecisionalState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#onlyTasksFromSameWorkflow
+cig:onlyTasksFromSameWorkflow rdf:type owl:NamedIndividual ,
+                                       cig:DesignTimeConflict ,
+                                       cig:PotentialConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#operationOnCause
+cig:operationOnCause rdf:type owl:NamedIndividual ,
+                              cig:ExecTimeConflict ,
+                              cig:PotentialConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#pendingChoiceState
+cig:pendingChoiceState rdf:type owl:NamedIndividual ,
+                                cig:DecisionalState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#pendingOrChosenState
+cig:pendingOrChosenState rdf:type owl:NamedIndividual ,
+                                  cig:DecisionalState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#separateSimultaneousTasks
+cig:separateSimultaneousTasks rdf:type owl:NamedIndividual ,
+                                       cig:CertainConflict ,
+                                       cig:DesignTimeConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#singleIntegrationPoint
+cig:singleIntegrationPoint rdf:type owl:NamedIndividual ,
+                                    cig:CertainConflict ,
+                                    cig:DesignTimeConflict .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#startedState
+cig:startedState rdf:type owl:NamedIndividual ,
+                          cig:WorkflowState .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#stateDiscard
+cig:stateDiscard rdf:type owl:NamedIndividual ,
+                          cig:StateOperation .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#stateReplace
+cig:stateReplace rdf:type owl:NamedIndividual ,
+                          cig:StateOperation .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#tmpAfterPeriodFrom
+cig:tmpAfterPeriodFrom rdf:type owl:NamedIndividual ,
+                                cig:TemporalConstraint .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#tmpAllWithinPeriod
+cig:tmpAllWithinPeriod rdf:type owl:NamedIndividual ,
+                                cig:TemporalConstraint .
+
+
+###  http://niche.cs.dal.ca/ns/cig-into#tmpWithinPeriodOf
+cig:tmpWithinPeriodOf rdf:type owl:NamedIndividual ,
+                               cig:TemporalConstraint .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

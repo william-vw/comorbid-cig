@@ -1,0 +1,51 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - profile
+
+cig:currentPatient 
+	cig:INR_value cig:abnormal .
+
+
+# - cig
+
+cig:deep_venous_thrombosis a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:dvt_clinical_history_and_exam .
+cig:dvt_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:rti_treatment_warfarin .
+
+cig:respiratory_tract_infection a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:rti_clinical_history_and_exam .
+cig:rti_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:dvt_treatment_erythromycin .
+
+cig:dvt_treatment_erythromycin 
+	cig:curState cig:activeState , cig:chosenState ;
+	cig:reachedState cig:inactiveState, cig:activeState .
+	
+cig:rti_treatment_warfarin 
+	cig:curState cig:activeState , cig:chosenState ;
+	cig:reachedState cig:inactiveState, cig:activeState .
+
+
+# - policy
+
+cig:p a cig:EventCondReplacePolicy ;
+	cig:eventTask cig:dvt_treatment_erythromycin ;
+	cig:taskToReplace cig:rti_treatment_warfarin ;
+	cig:replacement [
+		cig:eventTime cig:during ;
+		cig:entryCond [] ;
+		cig:exitCond [ cig:INR_value cig:normal ] ;
+		cig:task cig:adjust_warfarin_during_erythromycin ;
+	] ;
+	cig:replacement [
+		cig:eventTime cig:after ;
+		cig:entryCond [] ;
+		cig:exitCond [ cig:INR_value cig:normal ] ;
+		cig:task cig:adjust_warfarin_after_erythromycin ;
+	] .

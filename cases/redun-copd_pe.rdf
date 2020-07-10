@@ -1,0 +1,52 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - cig
+
+cig:chronic_obstructive_pulmonary_disease a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:copd_clinical_history_and_exam .
+cig:copd_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:copd_spirometry .
+	
+cig:copd_spirometry sa:is_followed_by cig:copd_spirometry_analysis .
+cig:copd_spirometry_analysis a sa:Decision_making_task ;
+#	sa:has_decision_option cig:copd_xray_scan ;
+	sa:has_decision_option cig:copd_ct_scan .
+
+cig:pulmonary_edema a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:pe_clinical_history_and_exam .
+cig:pe_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:pe_ctpa_scan .
+
+cig:pe_clinical_history_and_exam cig:duration "10" . 
+cig:pe_ctpa_scan 
+	cig:curState cig:chosenState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:resultValidPeriod "7" .
+	
+#cig:copd_xray_scan 
+	cig:curState cig:chosenState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState .
+	
+cig:copd_ct_scan 
+	cig:curState cig:pendingChoiceState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState .
+
+cig:copd_ct_scan cig:maxAbsDelay "10" .
+
+# - policy
+
+cig:p a cig:AsymmRedunTasksPolicy ;
+	cig:essen cig:pe_ctpa_scan ;
+	cig:redun cig:copd_ct_scan ;
+	
+	cig:config [
+		cig:precedence "0.8" ;
+		cig:category cig:clinicalCategory ;
+		cig:fuzzy "true" ;
+		cig:threshold "1" 
+	] .

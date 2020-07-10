@@ -1,0 +1,45 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - cig
+
+cig:chronic_heart_failure a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:chf_clinical_history_and_exam .
+cig:chf_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:chf_ecg .
+	
+cig:atrial_fibrillation a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:af_clinical_history_and_exam .
+cig:af_clinical_history_and_exam a sa:Decision_making_task ; 
+	sa:has_decision_option cig:af_ct_scan .
+
+cig:chf_clinical_history_and_exam cig:duration "20" .
+cig:af_clinical_history_and_exam cig:duration "1" .
+
+cig:chf_ecg 
+	cig:curState cig:pendingChoiceState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:duration "5" .
+cig:af_ct_scan 
+	cig:curState cig:chosenState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:duration "5" ;
+	cig:maxAbsDelay "10" .
+	
+
+# - policy
+
+cig:p a cig:SimulTasksPolicy ;
+	cig:simulTask cig:chf_ecg ;
+	cig:simulTask cig:af_ct_scan ;
+	cig:simulPeriod "2" .
+	
+cig:p cig:config [
+	cig:precedence "0.5" ;
+	cig:category cig:clinicalCategory ;
+	cig:fuzzy "true"
+] .

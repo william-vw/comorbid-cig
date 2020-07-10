@@ -1,0 +1,38 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - cig
+
+cig:dvt a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:dvt_treatment_warfarin .
+	
+cig:rti a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:rti_treatment_erythromycin .
+
+cig:dvt_treatment_warfarin 
+	cig:curState cig:pendingOrChosenState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:duration "5" .
+cig:rti_treatment_erythromycin 
+	cig:curState cig:pendingOrChosenState, cig:inactiveState ;
+	cig:reachedState cig:inactiveState ;
+	cig:duration "5" ;
+	cig:maxAbsDelay "10" .
+	
+
+# - policy
+
+cig:p a cig:SeparateTasksPolicy ;
+	cig:separTask [ cig:task cig:dvt_treatment_warfarin ; cig:order "1" ] ;
+	cig:separTask [ cig:task cig:rti_treatment_erythromycin ; cig:order "2" ] ;
+	cig:separPeriod "2" ;
+	
+	cig:config [
+		cig:precedence "1" ;
+		cig:category cig:clinicalCategory ;
+		cig:fuzzy "true"
+	] .

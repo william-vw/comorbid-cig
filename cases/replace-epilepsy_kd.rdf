@@ -1,0 +1,22 @@
+@prefix cig: <http://niche.cs.dal.ca/ns/cig-into#> .
+@prefix sa: <http://www.owl-ontologies.com/Ontology1212072707.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://niche.cs.dal.ca/ns/cig-into#> .
+
+
+# - cig
+
+cig:epilepsy a sa:Clinical_pathway_entry_points ;
+	sa:has_task cig:epilepsy_treatment_levetiracetam .
+
+cig:epilepsy_treatment_levetiracetam
+	cig:curState cig:activeState, cig:chosenState ;
+	cig:reachedState cig:inactiveState, cig:activeState .
+
+
+# - policy
+
+cig:p a cig:ReplaceTasksPolicy ;
+	cig:taskToReplace cig:epilepsy_treatment_levetiracetam ;
+	cig:replacement cig:epilepsy_treatment_benzodiazepines .
